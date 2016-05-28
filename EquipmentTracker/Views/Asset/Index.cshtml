@@ -1,0 +1,86 @@
+﻿@model EquipmentTracker.ViewModels.AssetIndexData
+
+@{
+    ViewBag.Title = "Assets";
+}
+
+<h2>Assets</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>@Html.ActionLink("Asset", "Index", new { sortOrder = ViewBag.AssetSortParm })</th>
+        <th>@Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParm })</th>
+        <th>Serial Number</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Assets)
+{
+    string selectedRow = "";
+    if (item.AssetID == ViewBag.AssetID)
+    {
+        selectedRow = "success";
+    }
+    <tr class="@selectedRow">
+        <td>
+            @Html.DisplayFor(modelItem => item.AssetID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SerialNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Select", "Index", new { id = item.AssetID, sortOrder = ViewBag.CurrentSort }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.AssetID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AssetID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AssetID })
+        </td>
+    </tr>
+}
+
+</table>
+
+@if(Model.WorkOrders != null) {
+    if(Model.WorkOrders.Count() > 0)
+    {
+        <h3>Work Orders for Selected Asset</h3>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Number</th>
+                <th>Asset</th>
+                <th>Problem</th>
+                <th>Date Requested</th>
+            </tr>
+            @foreach(var item in Model.WorkOrders)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        @item.WorkOrderID
+                    </td>
+                    <td>
+                    @if(!String.IsNullOrEmpty(item.AssetID))
+                    {
+                        @item.AssetID
+                    }
+                    </td>
+                    <td>
+                        @item.Problem
+                    </td>
+                    <td>
+                        @item.DateRequested
+                    </td>
+                    <td>
+                        @Html.ActionLink("Go to Work Order Detail", "Details", "WorkOrder", new { id = item.WorkOrderID }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}

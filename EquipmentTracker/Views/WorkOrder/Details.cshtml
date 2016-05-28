@@ -1,0 +1,58 @@
+﻿@model EquipmentTracker.Models.WorkOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Work Order Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkOrderID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkOrderID)
+        </dd>
+
+        <dt>
+            Asset
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssetID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asset.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asset.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Problem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Problem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRequested)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRequested)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WorkOrderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
